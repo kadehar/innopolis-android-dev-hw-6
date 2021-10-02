@@ -1,6 +1,7 @@
 package hw.blockingqueue;
 
 import hw.parser.Parser;
+import hw.parser.Roots;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class Producer implements Runnable {
         File file = new File("src/main/resources/voyna.txt");
         ArrayList<String> list = parser.parse(file);
         list.forEach(str -> {
-            if (str.startsWith("страд")) {
+            if (str.matches(Roots.SUFFERING.pattern())) {
                 try {
                     queue.put(str);
                 } catch (InterruptedException e) {

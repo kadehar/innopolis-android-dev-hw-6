@@ -4,7 +4,7 @@ import static java.lang.Thread.sleep;
 
 public class Timer implements Runnable {
     private volatile int time;
-    private volatile boolean flag;
+    private volatile boolean isSet;
 
     @Override
     public void run() {
@@ -20,14 +20,14 @@ public class Timer implements Runnable {
     }
 
     public synchronized void setTime(int time) {
-        flag = true;
+        isSet = true;
         this.time = time;
-        flag = false;
+        isSet = false;
         notifyAll();
     }
 
     public synchronized int getTime() {
-        while(flag){
+        while(isSet){
             try {
                 wait();
             } catch (InterruptedException e) {
